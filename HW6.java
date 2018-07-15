@@ -1,7 +1,7 @@
 
 public class HW6 {
 	public static int bufferSize;
-	public static int maxWait;		//Units: milliseconds, per GTA Matt's post on Piazza
+	public static int maxWait;		//Units: milliseconds
 	public static int itemCount;
 	public static int numProd;
 	public static int numCons;
