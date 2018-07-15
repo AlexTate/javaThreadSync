@@ -16,7 +16,7 @@ public class ProducerThread extends Thread {
 	static int bufferSize;				
 	static int maxWait;
 	static int itemCount;								//Value is decremented appropriately, shared among all instances of ProducerThread
-	static int total;									//Duplication of above value, since ProducerThreads collectively decrement itemCount
+	static int total;								//Duplication of above value, since ProducerThreads collectively decrement itemCount
 	static BoundedBuffer buff;
 	static Random rand = new Random();
 	
@@ -43,7 +43,7 @@ public class ProducerThread extends Thread {
 			synchronized(buff) {
 				
 				int value = genVal();					//Generate a random value [0, 100)
-				int location = buff.put(value);			//Places value at end of queue and returns its index in the buffer
+				int location = buff.put(value);				//Places value at end of queue and returns its index in the buffer
 				
 				if (location == -1) {					//Buffer was full
 					
@@ -52,12 +52,12 @@ public class ProducerThread extends Thread {
 					
 				} else {
 					
-					--itemCount;						//Decrement remaining items, shared across all instances (therefore needed before waking other Producers)
-					buff.notifyAll();					//Wake all waiting threads now that we're out of critical section
-					//buff.print();						//Print contents of buffer, nicely (for debugging)
+					--itemCount;					//Decrement remaining items, shared across all instances (therefore needed before waking other Producers)
+					buff.notifyAll();				//Wake all waiting threads now that we're out of critical section
+					//buff.print();					//Print contents of buffer, nicely (for debugging)
 					
 					System.out.printf("Producer %2d: %-7s %2d %-14s %2d at Time: %s\n",
-										id, "Placed", value, "at Location:", location, timeStamp());					
+							id, "Placed", value, "at Location:", location, timeStamp());					
 					
 					if (itemCount == 0) {				//All items have been produced
 						System.out.printf("Producers: Finished producing %d items\n", total);	//Will only print once
@@ -70,7 +70,7 @@ public class ProducerThread extends Thread {
 		}
 			
 		} catch (InterruptedException ie) {
-            System.out.printf("\tInterrupted! Producer ID reporting: %d\n", this.id);
+            		System.out.printf("\tInterrupted! Producer ID reporting: %d\n", this.id);
 		}
 	}
 	
@@ -94,6 +94,6 @@ public class ProducerThread extends Thread {
 	}
 	
 	private static int genVal() {
-		return rand.nextInt(100);			//Range [0, 100)
+		return rand.nextInt(100);		//Range [0, 100)
 	}
 }
