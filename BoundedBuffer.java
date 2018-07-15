@@ -26,14 +26,14 @@ public class BoundedBuffer {
 			//Queue is empty, return illegal position
 			result[0] = -1;				
 		} else {
-			result[0] = head;						//Copy the position of the value fetched (front of queue)
+			result[0] = head;					//Copy the position of the value fetched (front of queue)
 			result[1] = buffer[head];				//Copy value
-			buffer[head] = -1;						//Assign an illegal value to the fetched position (for debugging)
-			if (++head == bufferSize) head = 0;		//Advance head past fetched value, maintain circular queue
-			--depth;								//Decrease queue depth to account for removed element
+			buffer[head] = -1;					//Assign an illegal value to the fetched position (for debugging)
+			if (++head == bufferSize) head = 0;			//Advance head past fetched value, maintain circular queue
+			--depth;						//Decrease queue depth to account for removed element
 		}
 		
-		return result;								//Return position of fetched value, and the value
+		return result;							//Return position of fetched value, and the value
 	}
 	
 	public synchronized int put(int inVal) throws InterruptedException {
@@ -43,9 +43,9 @@ public class BoundedBuffer {
 			//Queue is full, return illegal position
 			placedLoc = -1;				
 		} else {
-			int idx = (head + depth) % bufferSize;	//Get next open index in circular FIFO queue
+			int idx = (head + depth) % bufferSize;			//Get next open index in circular FIFO queue
 			buffer[idx] = inVal;					//Assign value to index
-			++depth;								//Increment queue depth to account for new value
+			++depth;						//Increment queue depth to account for new value
 			
 			placedLoc = idx;
 		}
